@@ -1,0 +1,26 @@
+@model MyBlogApp.Models.Post
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@if (!string.IsNullOrEmpty(Model.ImageUrl))
+{
+    <div class="mb-4 text-center">
+        <img src="@Url.Content(Model.ImageUrl)" class="img-fluid rounded shadow-sm" alt="@Model.Title" style="max-height: 400px;">
+    </div>
+}
+
+<h1>@Html.DisplayFor(model => model.Title)</h1>
+<small class="text-muted">Published: @Model.PublishedDate.ToString("dd MMMM yyyy, hh:mm tt")</small>
+
+<hr />
+
+<div>
+    <div class="fs-5" style="white-space: pre-wrap;">@Html.Raw(Model.Content)</div>
+</div>
+<hr />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-secondary">Edit</a>
+    <a asp-action="Index" asp-controller="Home" class="btn btn-outline-primary">Back to Home</a>
+</div>

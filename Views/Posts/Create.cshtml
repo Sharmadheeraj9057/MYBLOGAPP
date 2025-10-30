@@ -1,0 +1,62 @@
+@model MyBlogApp.Models.Post
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/3kdkgilrf540xrpbql260om7puiixq0bmmugh56zrtxm8btq/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: 'textarea#Content',  // 'Content' ID waale textarea ko select karega
+        plugins: 'lists link image emoticons table codesample',
+        toolbar: 'undo redo | blocks | bold italic | bullist numlist | link image | codesample emoticons',
+        menubar: false,
+        height: 400 // Editor ki height
+      });
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+<h1>Create</h1>
+<h4>New Post</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control" rows="10" id="Content"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input type="file" name="HeaderImage" class="form-control" accept="image/*" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="PublishedDate" class="control-label"></label>
+                <input asp-for="PublishedDate" class="form-control" type="datetime-local" />
+                <span asp-validation-for="PublishedDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
